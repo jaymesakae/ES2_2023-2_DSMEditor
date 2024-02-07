@@ -1,6 +1,8 @@
 # Prévia
 Trabalho final de Engenharia de Software 2 (ES2) Ministrada pelo Prof. Dr. André Takeshi Endo no segundo semestre de 2023 (2023/2)
 
+O repositório escolhido foi https://github.com/ajcarney/DSMEditor
+
 # Integrantes
 Ana Luiza Conrado, 801583 (https://github.com/anaconrado)
 Augusto dos Santos, 900268 (https://github.com/augustodsgv)
