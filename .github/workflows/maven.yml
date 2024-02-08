@@ -27,10 +27,6 @@ jobs:
       run: mvn clean
       working-directory: ES2_2023-2_DSMEditor/
       
-    - name: Build debug
-      run: mvn -Ddebug=true javafx:run
-      working-directory: ES2_2023-2_DSMEditor/
-      
     - name: Build install
       run: mvn install
       working-directory: ES2_2023-2_DSMEditor/
