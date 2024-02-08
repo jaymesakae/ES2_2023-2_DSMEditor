@@ -15,13 +15,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Download and install JavaFX
-      run: |
-        mkdir -p $HOME/javafx-sdk
-        cd $HOME/javafx-sdk
-        wget https://download2.gluonhq.com/openjfx/21.0.2/openjfx-21.0.2_linux-x64_bin-sdk.zip
-        unzip openjfx-21.0.2_linux-x64_bin-sdk.zip
-        export PATH_TO_FX=$HOME/javafx-sdk/javafx-sdk-21.0.2/lib
 
     - name: Build clean
       run: mvn clean
@@ -35,10 +28,6 @@ jobs:
       run: mvn package
       working-directory: ES2_2023-2_DSMEditor/
     
-    - name: Build run
-      run: mvn javafx:run -Djavafx.path=$PATH_TO_FX -X
-      working-directory: ES2_2023-2_DSMEditor/
-      
     - name: Build test
       run: mvn clean test
       working-directory: ES2_2023-2_DSMEditor/
