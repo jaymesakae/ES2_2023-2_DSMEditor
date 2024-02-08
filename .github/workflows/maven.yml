@@ -25,16 +25,27 @@ jobs:
         cache: maven
     - name: Build clean
       run: mvn clean
+      working-directory: ES2_2023-2_DSMEditor/
+      
     - name: Build debug
       run: mvn -Ddebug=true javafx:run
+      working-directory: ES2_2023-2_DSMEditor/
+      
     - name: Build install
       run: mvn install
+      working-directory: ES2_2023-2_DSMEditor/
+    
     - name: Build package
       run: mvn package
+      working-directory: ES2_2023-2_DSMEditor/
+    
     - name: Build run
       run: mvn javafx:run
+      working-directory: ES2_2023-2_DSMEditor/
+      
     - name: Build test
       run: mvn clean test
+      working-directory: ES2_2023-2_DSMEditor/
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
