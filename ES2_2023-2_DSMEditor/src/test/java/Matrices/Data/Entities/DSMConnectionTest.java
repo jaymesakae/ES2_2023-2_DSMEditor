@@ -82,4 +82,21 @@ public class DSMConnectionTest {
         Assertions.assertFalse(conn1.isSameConnectionType(conn2));
     }
 
+     /*
+    * Autor(a): Gabrielly Castilho
+    * Tests the copy of a connection
+    * */
+    @Test
+    public void copyConectionTest(){
+        ArrayList<DSMInterfaceType> interfaces = new ArrayList<>();
+        interfaces.add(new DSMInterfaceType("interface 1", "1"));
+        interfaces.add(new DSMInterfaceType("interface 2", "2"));
+
+        DSMConnection connection1 = new DSMConnection("conn", 1.0, 1, 2, interfaces);
+        DSMConnection connectionCopy = new DSMConnection(connection1);
+
+        Assertions.assertEquals(connection1, connectionCopy);
+
+    }
+
 }

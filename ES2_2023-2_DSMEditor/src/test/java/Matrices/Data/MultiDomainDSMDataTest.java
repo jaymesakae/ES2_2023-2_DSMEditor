@@ -500,4 +500,24 @@ public class MultiDomainDSMDataTest {
         Assertions.assertIterableEquals(expectedColUids, actualColUids);
     }
 
+        /*
+    * Autor(a): Gabrielly Castilho
+    * Tests changing the index
+    * */
+
+    @Test
+    public void setItemSortIndexTest2() {
+        MultiDomainDSMData matrix = new MultiDomainDSMData();
+        DSMItem rowItem = new DSMItem(1, 1, 1.0, "item1", null, null);
+        matrix.addItem(rowItem, true);
+
+        matrix.setCurrentStateAsCheckpoint();
+        matrix.setItemSortIndex(rowItem, 2.0);
+        matrix.setCurrentStateAsCheckpoint();
+
+        stressUndoRedo(matrix);
+
+        Assertions.assertEquals(2.0, rowItem.getSortIndex());
+    }
+
 }
