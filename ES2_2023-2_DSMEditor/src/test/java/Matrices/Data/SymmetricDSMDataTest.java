@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -472,5 +473,25 @@ public class SymmetricDSMDataTest {
 
         Assertions.assertEquals("x", matrix.getSymmetricConnection(1, 33).getConnectionName());
     }
+
+        /**
+     * Autor(a): Gabrielly Castilho
+     * Tests create a SymmetricDSMData having a group already
+     */
+
+     @Test
+     public void testSymmetricDSMDataConstructorWithGroupings() {
+         List<Grouping> groupingsList = new ArrayList<>();
+         groupingsList.add(new Grouping("Group1", null));
+         groupingsList.add(new Grouping("Group2", null));
+ 
+         SymmetricDSMData symmetricDSMData = new SymmetricDSMData(groupingsList);
+ 
+         Assertions.assertNotNull(symmetricDSMData.getConnections());
+         Assertions.assertNotNull(symmetricDSMData.getGroupings());
+         Assertions.assertEquals(groupingsList.size(), symmetricDSMData.getGroupings().size());
+ 
+     }
+ 
 
 }

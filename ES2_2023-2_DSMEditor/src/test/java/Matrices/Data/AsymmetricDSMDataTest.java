@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 
@@ -252,5 +254,45 @@ public class AsymmetricDSMDataTest {
 
         Assertions.assertEquals("item1", matrix.getRows().get(0).getName().getValue());
     }
+
+    /**
+     * Autor(a): Gabrielly Castilho
+     * tests transposing a matrix
+     */
+
+    @Test
+    public void transposeMatrixTest(){
+        AsymmetricDSMData matrix = new AsymmetricDSMData();
+        matrix.addItem(new DSMItem(1, 11, 1.0, "item1", null, null), true);
+        matrix.addItem(new DSMItem(2, 22, 1.0, "item2", null, null), true);
+        matrix.addItem(new DSMItem(3, 33, 1.0, "item3", null, null), true);
+        matrix.addItem(new DSMItem(11, 1, 1.0, "item1", null, null), false);
+        matrix.addItem(new DSMItem(22, 2, 1.0, "item2", null, null), false);
+        matrix.addItem(new DSMItem(33, 3, 1.0, "item3", null, null), false);
+        matrix.createConnection(1, 22, "x", 1.0, new ArrayList<>());
+        matrix.createConnection(3, 22, "x", 1.0, new ArrayList<>());
+        matrix.createConnection(2, 11, "x", 1.0, new ArrayList<>());
+        matrix.createConnection(3, 11, "x", 1.0, new ArrayList<>());
+
+        matrix.setCurrentStateAsCheckpoint();
+        matrix.transposeMatrix();
+        matrix.setCurrentStateAsCheckpoint();
+
+        stressUndoRedo(matrix);
+
+        ArrayList<String> expectedRowNames = new ArrayList<>(Arrays.asList("item1", "item2", "item3"));
+        ArrayList<String> expectedColNames = new ArrayList<>(Arrays.asList("item1", "item2", "item3"));
+        ArrayList<String> actualRowNames = new ArrayList<>(matrix.getRows().stream().map(item -> item.getName().getValue()).collect(Collectors.toList()));
+        ArrayList<String> actualColNames = new ArrayList<>(matrix.getCols().stream().map(item -> item.getName().getValue()).collect(Collectors.toList()));
+        Collections.sort(expectedRowNames);
+        Collections.sort(expectedColNames);
+        Collections.sort(actualRowNames);
+        Collections.sort(actualColNames);
+
+        Assertions.assertEquals(4, matrix.getConnections().size());  // make sure connections stayed the same
+        Assertions.assertIterableEquals(expectedRowNames, actualRowNames);
+        Assertions.assertIterableEquals(expectedColNames, actualColNames);
+    }
+
 
 }
