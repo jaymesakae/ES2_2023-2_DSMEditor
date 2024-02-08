@@ -36,7 +36,7 @@ jobs:
       working-directory: ES2_2023-2_DSMEditor/
     
     - name: Build run
-      run: mvn javafx:run
+      run: mvn javafx:run -X
       working-directory: ES2_2023-2_DSMEditor/
       
     - name: Build test
