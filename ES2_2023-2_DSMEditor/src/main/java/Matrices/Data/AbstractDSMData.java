@@ -164,7 +164,7 @@ public abstract class AbstractDSMData {
     public final void undoToCheckpoint() {
         int iter = 0;
         while(true) {  // undo state until the last checkpoint
-            if(undoStack.size() > 0) {  // make sure stack is not empty
+            if(!undoStack.isEmpty()) {  // make sure stack is not empty
                 MatrixChange change = undoStack.peek();
                 if(change.isCheckpoint() && iter > 0) {  // stop before the checkpoint unless it is the first item
                     break;
