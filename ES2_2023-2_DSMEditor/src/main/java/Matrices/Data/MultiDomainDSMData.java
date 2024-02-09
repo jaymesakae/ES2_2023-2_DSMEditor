@@ -784,10 +784,10 @@ public class MultiDomainDSMData extends AbstractDSMData implements IZoomable, IP
             domainRows.sort(Comparator.comparing(DSMItem::getSortIndex));
             domainCols.sort(Comparator.comparing(DSMItem::getSortIndex));
             for(int i=0; i<domainRows.size(); i++) {  // reset row sort Indices 1 -> n
-                setItemSortIndex(domainRows.get(i), i + 1);
+                setItemSortIndex(domainRows.get(i), i + 1.0);
             }
             for(int i=0; i<domainCols.size(); i++) {  // reset col sort Indices 1 -> n
-                setItemSortIndex(domainCols.get(i), i + 1);
+                setItemSortIndex(domainCols.get(i), i + 1.0);
             }
         }
     }
