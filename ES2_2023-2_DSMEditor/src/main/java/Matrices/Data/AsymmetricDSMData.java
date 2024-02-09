@@ -146,7 +146,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
      */
     public void addGrouping(Boolean isRow, Grouping group) {
         if(isRow == true && rowGroupings.contains(group)) return;
-        if(!isRow && colGroupings.contains(group)) return;
+        if(isRow == false && colGroupings.contains(group)) return;
 
         addChangeToStack(new MatrixChange(
                 () -> {  // do function
