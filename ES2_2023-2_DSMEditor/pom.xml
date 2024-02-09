@@ -339,6 +339,8 @@
     </build>
 
     <properties>
+        <sonar.organization>jaymesakae</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <debug>false</debug>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
