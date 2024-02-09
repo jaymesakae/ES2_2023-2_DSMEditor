@@ -43,10 +43,7 @@ public class DSMApplication extends Application {
 
         // start with a tab open (used for debugging, remove or comment out for release)
         if(cliArgs.contains("debug=true")) {
-//            File f = new File("/home/aiden/Documents/DSMEditor/dsms/defect_group_text_color.dsm");
-//            if(f.exists()) {
-//                editor.addTab(new SymmetricDSM(f));
-//            }
+//
             Constants.Constants.isDebug = true;
             File f = new File("/home/aiden/Documents/DSMEditor/input_nonsymmetric_Test_Propagation_analysis.dsm");
             if(f.exists()) {
