@@ -46,7 +46,6 @@ import java.util.*;
  */
 public class HeaderMenu {
     private static int defaultName = 0;
-
     private final Menu fileMenu = new Menu("_File");
     private final Menu editMenu = new Menu("_Edit");
     private final Menu viewMenu = new Menu("_View");
@@ -102,12 +101,33 @@ public class HeaderMenu {
      */
     private void setupFileMenu() {
         Menu newFileMenu = new Menu("New");
+        //newFileMenu.setStyle(Styles.getAppSecStyle());
+        //newFileMenu.setStyle(Styles.getAppFontStyle());
+
         MenuItem openMenu = new MenuItem("Open...");
+        //openMenu.setStyle(Styles.getAppSecStyle());
+        //openMenu.setStyle(Styles.getAppFontStyle());
+
         MenuItem saveFile = new MenuItem("Save");
+        //saveFile.setStyle(Styles.getAppSecStyle());
+        //saveFile.setStyle(Styles.getAppFontStyle());
+
         MenuItem saveFileAs = new MenuItem("Save As...");
+        //saveFileAs.setStyle(Styles.getAppSecStyle());
+        //saveFileAs.setStyle(Styles.getAppFontStyle());
+
         Menu importMenu = new Menu("Import");
+        //importMenu.setStyle(Styles.getAppSecStyle());
+        //importMenu.setStyle(Styles.getAppFontStyle());
+
         Menu exportMenu = new Menu("Export");
+        //exportMenu.setStyle(Styles.getAppSecStyle());
+        //exportMenu.setStyle(Styles.getAppFontStyle());
+
         MenuItem exitMenu = new MenuItem("Exit");
+        //exitMenu.setStyle(Styles.getAppSecStyle());
+        //exitMenu.setStyle(Styles.getAppFontStyle());
+
 
         setupNewFileMenuButton(newFileMenu);
         setupOpenMenuButton(openMenu);
@@ -115,6 +135,7 @@ public class HeaderMenu {
         setupSaveAsFileMenuButton(saveFileAs);
         setupImportMenuButton(importMenu);
         setupExportMenuButton(exportMenu);
+
         exitMenu.setOnAction(e -> menuBar.getScene().getWindow().fireEvent(
                 new WindowEvent(
                         menuBar.getScene().getWindow(),
@@ -146,6 +167,9 @@ public class HeaderMenu {
      */
     private void setupNewFileMenuButton(Menu parent) {
         MenuItem newSymmetric = new MenuItem("Symmetric Matrix");
+        //newSymmetric.setStyle(Styles.getAppSecStyle());
+        //newSymmetric.setStyle(Styles.getAppFontStyle());
+
         newSymmetric.setOnAction(e -> {
             File file = new File("./untitled" + defaultName);
             while(file.exists()) {  // make sure file does not exist
@@ -741,9 +765,9 @@ public class HeaderMenu {
 
         MenuItem darkMode = new MenuItem("Dark mode");
         darkMode.setOnAction(e -> Styles.setDarkMode(true));
-        colorModeMenu.setStyle("-fx-background-color: "+ Styles.getCurrentPrimColor());
-        menuBar.setStyle("-fx-background-color: "+ Styles.getCurrentPrimColor());
-        System.out.println("new color:"+Styles.getCurrentSecColor());
+        colorModeMenu.setStyle(Styles.getAppSecStyle());
+        menuBar.setStyle(Styles.getAppSecStyle());
+        //System.out.println("new color:"+Styles.getCurrentSecColor());
 
         colorModeMenu.getItems().addAll(lightMode, darkMode);
         refresh(matrixData, ioHandler, matrixView);

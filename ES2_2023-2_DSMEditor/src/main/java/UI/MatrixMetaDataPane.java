@@ -1,5 +1,6 @@
 package UI;
 
+import Styles.Styles;
 import Matrices.Data.AbstractDSMData;
 import UI.Widgets.Misc;
 import javafx.geometry.Insets;
@@ -11,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import javax.swing.text.Style;
 
 
 /**
@@ -91,32 +94,43 @@ public class MatrixMetaDataPane {
             GridPane editLayout = new GridPane();
 
             Label titlePrompt = new Label("Title: ");
+            titlePrompt.setStyle(Styles.getAppFontStyle());
             Label projectPrompt = new Label("Project Name: ");
+            projectPrompt.setStyle(Styles.getAppFontStyle());
             Label customerPrompt = new Label("Customer: ");
+            customerPrompt.setStyle(Styles.getAppFontStyle());
             Label versionPrompt = new Label("Version: ");
+            versionPrompt.setStyle(Styles.getAppFontStyle());
             Label datePrompt = new Label("Project date: ");
+            datePrompt.setStyle(Styles.getAppFontStyle());
+
 
             TextField title = new TextField();
+            title.setStyle(Styles.getAppPrimStyle());
             title.setText(titleLabel.getText());
             title.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(title, Priority.ALWAYS);
 
             TextField project = new TextField();
+            project.setStyle(Styles.getAppTercStyle());
             project.setText(projectNameLabel.getText());
             project.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(project, Priority.ALWAYS);
 
             TextField customer = new TextField();
+            customer.setStyle(Styles.getAppTercStyle());
             customer.setText(customerLabel.getText());
             customer.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(customer, Priority.ALWAYS);
 
             TextField version = new TextField();
+            version.setStyle(Styles.getAppTercStyle());
             version.setText(versionNumberLabel.getText());
             version.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(version, Priority.ALWAYS);
 
             TextField date = new TextField();
+            date.setStyle(Styles.getAppTercStyle());
             date.setText(projectDateLabel.getText());
             date.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(date, Priority.ALWAYS);
@@ -141,6 +155,7 @@ public class MatrixMetaDataPane {
             Pane vSpacer = new Pane();  // used as a spacer between buttons
             VBox.setVgrow(vSpacer, Priority.ALWAYS);
             vSpacer.setMaxHeight(Double.MAX_VALUE);
+            vSpacer.setStyle(Styles.getAppSecStyle());
 
             HBox closeArea = new HBox();
             Button applyAllButton = new Button("Apply");
@@ -169,6 +184,7 @@ public class MatrixMetaDataPane {
             rootLayout.setAlignment(Pos.CENTER);
             rootLayout.setPadding(new Insets(10, 10, 10, 10));
             rootLayout.setSpacing(10);
+            rootLayout.setStyle(Styles.getAppPrimStyle());
 
 
             //Display window and wait for it to be closed before returning

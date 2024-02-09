@@ -1,4 +1,5 @@
 import Matrices.*;
+import Styles.Styles;
 import UI.EditorPane;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -9,7 +10,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,7 +37,7 @@ public class DSMApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         Platform.setImplicitExit(true);
-        root.setStyle("-fx-background-color: "+ Styles.Styles.getCurrentPrimColor());
+        root.setStyle(Styles.getAppPrimStyle());
 
 
         editor = new EditorPane(new MatricesCollection(), root);
