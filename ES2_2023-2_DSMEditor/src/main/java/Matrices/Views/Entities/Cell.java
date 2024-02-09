@@ -25,14 +25,15 @@ public class Cell {
     protected ObjectProperty<Color> fontColor = new SimpleObjectProperty<>(Color.color(0.0, 0.0, 0.0));
 
     // dictionary of all the different highlight types that are supported
-    protected HashMap<String, Background> highlightBGs = new HashMap<>() {{
-        put("default", null);
-        put("user", null);
-        put("cross", null);
-        put("error", null);
-        put("symmetryError", null);
-        put("search", null);
-    }};
+    protected HashMap<String, Background> highlightBGs = new HashMap<>();
+    {
+        highlightBGs.put("default", null);
+        highlightBGs.put("user", null);
+        highlightBGs.put("cross", null);
+        highlightBGs.put("error", null);
+        highlightBGs.put("symmetryError", null);
+        highlightBGs.put("search", null);
+    }
 
 
     /**
