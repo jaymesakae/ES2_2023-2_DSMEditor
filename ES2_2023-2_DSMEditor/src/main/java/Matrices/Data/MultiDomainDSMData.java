@@ -611,7 +611,7 @@ public class MultiDomainDSMData extends AbstractDSMData implements IZoomable, IP
      * @param domain  the domain for the item (for MDMs this method should be used because item domains cannot be changed)
      */
     public void createItem(String name, Grouping domain) {
-        double index = (int)getMaxSortIndex(domain) + 1;  // cast to int to remove the decimal place so that the index will be a whole number
+        double index = (int)getMaxSortIndex(domain) + 1.0;  // cast to int to remove the decimal place so that the index will be a whole number
 
         DSMItem rowItem = new DSMItem(index, name);
         DSMItem colItem = new DSMItem(index, name);
