@@ -1,6 +1,7 @@
 package UI;
 
 import Constants.Constants;
+import Styles.Styles;
 import Matrices.AsymmetricDSM;
 import Matrices.Data.AbstractDSMData;
 import Matrices.Data.AsymmetricDSMData;
@@ -20,6 +21,8 @@ import Matrices.MultiDomainDSM;
 import Matrices.SymmetricDSM;
 import Matrices.Views.AbstractMatrixView;
 import Matrices.Views.Flags.ISymmetricHighlight;
+import Styles.Styles;
+import com.sun.jdi.VMOutOfMemoryException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -44,29 +47,24 @@ import java.util.*;
  */
 public class HeaderMenu {
     private static int defaultName = 0;
-
     private final Menu fileMenu = new Menu("_File");
     private final Menu editMenu = new Menu("_Edit");
     private final Menu viewMenu = new Menu("_View");
     private final Menu toolsMenu = new Menu("_Tools");
     private final Menu helpMenu = new Menu("_Help");
-
+    private final Menu colorModeMenu = new Menu("_Color mode");
     private ToggleGroup toggleGroup = new ToggleGroup();
     private RadioMenuItem namesView = new RadioMenuItem("Names");
     private RadioMenuItem weightsView = new RadioMenuItem("Weights");
     private RadioMenuItem interfacesView = new RadioMenuItem("Interfaces");
     private RadioMenuItem fastRenderView = new RadioMenuItem("Fast Render");
-
     private ArrayList<DSMInterfaceType> currentInterfaces = new ArrayList<>();
-
     private final MenuBar menuBar = new MenuBar();
-
     private final EditorPane editor;
     //private IDSM matrix;
     private AbstractDSMData matrixData;
     private AbstractIOHandler ioHandler;
     private AbstractMatrixView matrixView;
-
     private boolean disabled = false;
     private boolean crossHighlight = false;
 
@@ -85,9 +83,11 @@ public class HeaderMenu {
         setupEditMenu();
         setUpToolsMenu();
         setupViewMenu();
+        setupColorModeMenu();
         setupHelpMenu();
 
-        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu, toolsMenu, helpMenu);
+
+        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu, toolsMenu, colorModeMenu, helpMenu);
     }
 
 
@@ -97,12 +97,26 @@ public class HeaderMenu {
      */
     private void setupFileMenu() {
         Menu newFileMenu = new Menu("New");
+        newFileMenu.setStyle(Styles.getButtonStyle());
+
         MenuItem openMenu = new MenuItem("Open...");
+        openMenu.setStyle(Styles.getButtonStyle());
+
         MenuItem saveFile = new MenuItem("Save");
+        saveFile.setStyle(Styles.getButtonStyle());
+
         MenuItem saveFileAs = new MenuItem("Save As...");
+        saveFileAs.setStyle(Styles.getButtonStyle());
+
         Menu importMenu = new Menu("Import");
+        importMenu.setStyle(Styles.getButtonStyle());
+
         Menu exportMenu = new Menu("Export");
+        exportMenu.setStyle(Styles.getButtonStyle());
+
         MenuItem exitMenu = new MenuItem("Exit");
+        exitMenu.setStyle(Styles.getButtonStyle());
+
 
         setupNewFileMenuButton(newFileMenu);
         setupOpenMenuButton(openMenu);
@@ -110,6 +124,7 @@ public class HeaderMenu {
         setupSaveAsFileMenuButton(saveFileAs);
         setupImportMenuButton(importMenu);
         setupExportMenuButton(exportMenu);
+
         exitMenu.setOnAction(e -> menuBar.getScene().getWindow().fireEvent(
                 new WindowEvent(
                         menuBar.getScene().getWindow(),
@@ -141,6 +156,8 @@ public class HeaderMenu {
      */
     private void setupNewFileMenuButton(Menu parent) {
         MenuItem newSymmetric = new MenuItem("Symmetric Matrix");
+        newSymmetric.setStyle(Styles.getButtonStyle());
+
         newSymmetric.setOnAction(e -> {
             File file = new File("./untitled" + defaultName);
             while(file.exists()) {  // make sure file does not exist
@@ -155,6 +172,7 @@ public class HeaderMenu {
             defaultName += 1;
         });
         MenuItem newNonSymmetric = new MenuItem("Non-Symmetric Matrix");
+        newNonSymmetric.setStyle(Styles.getButtonStyle());
         newNonSymmetric.setOnAction(e -> {
             File file = new File("./untitled" + defaultName);
             while(file.exists()) {  // make sure file does not exist
@@ -170,6 +188,7 @@ public class HeaderMenu {
         });
 
         MenuItem newMultiDomain = new MenuItem("Multi-Domain Matrix");
+        newMultiDomain.setStyle(Styles.getButtonStyle());
         newMultiDomain.setOnAction(e -> {
             File file = new File("./untitled" + defaultName);
             while(file.exists()) {  // make sure file does not exist
@@ -305,8 +324,12 @@ public class HeaderMenu {
         if (matrixData == null) return;
 
         MenuItem exportCSV = new MenuItem("CSV File (.csv)...");
+        exportCSV.setStyle(Styles.getButtonStyle());
         MenuItem exportXLSX = new MenuItem("Micro$oft Excel File (.xlsx)...");
+        exportXLSX.setStyle(Styles.getButtonStyle());
         MenuItem exportImage = new MenuItem("PNG Image File (.png)...");
+        exportImage.setStyle(Styles.getButtonStyle());
+
 
         // matrices by default are instances of IStandardExports so set them up
         exportCSV.setOnAction(e -> {
@@ -365,6 +388,7 @@ public class HeaderMenu {
             matrixData.undoToCheckpoint();
             matrixView.refreshView();
         });
+
         undo.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.SHORTCUT_DOWN));
 
         MenuItem redo = new MenuItem("Redo");
@@ -390,6 +414,7 @@ public class HeaderMenu {
 
 
         MenuItem convertToMDM = new MenuItem("Convert to Multi-Domain");
+        convertToMDM.setStyle(Styles.getButtonStyle());
         convertToMDM.setOnAction(e -> {
             if(matrixData instanceof SymmetricDSMData symmetricMatrix) {
                 // create the default domain and the groupings
@@ -497,6 +522,7 @@ public class HeaderMenu {
         if(matrixData == null) return;
 
         MenuItem toggleCrossHighlight = new MenuItem("Toggle Cross-Highlight");
+        toggleCrossHighlight.setStyle(Styles.getButtonStyle());
         toggleCrossHighlight.setOnAction(e -> {
             matrixView.toggleCrossHighlighting();
             crossHighlight = !crossHighlight;
@@ -512,6 +538,8 @@ public class HeaderMenu {
         toolsMenu.getItems().add(toggleCrossHighlight);
 
         MenuItem search = new MenuItem("Find Connections");
+        search.setStyle(Styles.getButtonStyle());
+
         search.setOnAction(e -> editor.getSearchWidget().open());
         search.setAccelerator(new KeyCodeCombination(KeyCode.F, KeyCombination.SHORTCUT_DOWN));
         toolsMenu.getItems().add(search);
@@ -519,6 +547,7 @@ public class HeaderMenu {
 
         if(matrixView instanceof ISymmetricHighlight symmetricMatrixView) {
             RadioMenuItem validateSymmetry = new RadioMenuItem("Validate Symmetry");
+            validateSymmetry.setStyle(Styles.getButtonStyle());
             validateSymmetry.setSelected(symmetricMatrixView.getSymmetryValidation());
             validateSymmetry.setOnAction(e -> {
                 if (validateSymmetry.isSelected()) {
@@ -533,6 +562,7 @@ public class HeaderMenu {
 
         if(matrixData instanceof IPropagationAnalysis) {
             MenuItem propagationAnalysis = new MenuItem("Propagation Analysis...");
+            propagationAnalysis.setStyle(Styles.getButtonStyle());
             propagationAnalysis.setOnAction(e -> {
                 if (editor.getFocusedMatrixUid() == null) {
                     return;
@@ -557,6 +587,7 @@ public class HeaderMenu {
             });
 
             MenuItem thebeau = new MenuItem("Thebeau Algorithm...");
+            thebeau.setStyle(Styles.getButtonStyle());
             thebeau.setOnAction(e -> {
                 if (editor.getFocusedMatrixUid() == null) {
                     return;
@@ -576,24 +607,33 @@ public class HeaderMenu {
      */
     protected void setupViewMenu() {
         MenuItem zoomIn = new MenuItem("Zoom In");
+        zoomIn.setStyle(Styles.getButtonStyle());
         zoomIn.setOnAction(e -> editor.increaseFontScaling());
         zoomIn.setAccelerator(new KeyCodeCombination(KeyCode.I, KeyCombination.SHORTCUT_DOWN));
 
         MenuItem zoomOut = new MenuItem("Zoom Out");
+        zoomOut.setStyle(Styles.getButtonStyle());
         zoomOut.setOnAction(e -> editor.decreaseFontScaling());
         zoomOut.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN));
 
         MenuItem zoomReset = new MenuItem("Reset Zoom");
+        zoomReset.setStyle(Styles.getButtonStyle());
         zoomReset.setOnAction(e -> editor.resetFontScaling());
 
         Menu viewMode = new Menu("View Mode");
+        viewMode.setStyle(Styles.getButtonStyle());
 
         namesView = new RadioMenuItem("Names");
+        namesView.setStyle(Styles.getButtonStyle());
         weightsView = new RadioMenuItem("Weights");
+        weightsView.setStyle(Styles.getButtonStyle());
         interfacesView = new RadioMenuItem("Interfaces");
+        weightsView.setStyle(Styles.getButtonStyle());
         fastRenderView = new RadioMenuItem("Fast Render");
+        fastRenderView.setStyle(Styles.getButtonStyle());
 
         MenuItem configureVisibleInterfaces = new MenuItem("Configure Visible Interfaces...");
+        configureVisibleInterfaces.setStyle(Styles.getButtonStyle());
         configureVisibleInterfaces.setOnAction(e -> {
             currentInterfaces = ConfigureConnectionInterfaces.configureConnectionInterfaces(matrixData.getInterfaceTypes(), currentInterfaces);
             matrixView.setVisibleInterfaces(currentInterfaces);
@@ -705,6 +745,7 @@ public class HeaderMenu {
      */
     protected void setupHelpMenu() {
         MenuItem about = new MenuItem("About");
+        about.setStyle(Styles.getButtonStyle());
         about.setOnAction(e -> {
             // bring up window asking to delete rows or columns
             Stage window = new Stage();
@@ -725,6 +766,36 @@ public class HeaderMenu {
         });
 
         helpMenu.getItems().addAll(about);
+    }
+
+    /**
+     * sets up the Menu object for the color mode menu
+     */
+    protected void setupColorModeMenu() {
+        MenuItem lightMode = new MenuItem("Light mode");
+        lightMode.setStyle(Styles.getButtonStyle());
+        lightMode.setOnAction(e -> {
+            Styles.setDarkMode(false);
+            editor.updateColor(Styles.getAppPrimStyle(), Styles.getButtonStyle());
+
+        });
+
+        MenuItem darkMode = new MenuItem("Dark mode");
+        darkMode.setStyle(Styles.getButtonStyle());
+        darkMode.setOnAction(e -> {
+            Styles.setDarkMode(true);
+            editor.updateColor(Styles.getAppPrimStyle(), Styles.getButtonStyle());
+            menuBar.setStyle(Styles.getAppSecStyle());
+
+        });
+
+
+
+        colorModeMenu.setStyle(Styles.getAppSecStyle());
+        menuBar.setStyle(Styles.getAppSecStyle());
+        //System.out.println("new color:"+Styles.getCurrentSecColor());
+
+        colorModeMenu.getItems().addAll(lightMode, darkMode);
     }
 
 
@@ -762,14 +833,16 @@ public class HeaderMenu {
         editMenu.getItems().clear();
         viewMenu.getItems().clear();
         toolsMenu.getItems().clear();
+        colorModeMenu.getItems().clear();
         helpMenu.getItems().clear();
 
         setupFileMenu();
         setupEditMenu();
         setUpToolsMenu();
         setupViewMenu();
+        setupColorModeMenu();
         setupHelpMenu();
-        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu, toolsMenu, helpMenu);
+        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu, toolsMenu, colorModeMenu, helpMenu);
     }
 
 
@@ -783,6 +856,7 @@ public class HeaderMenu {
         editMenu.setDisable(disabled);
 
         RadioMenuItem currentMode = (RadioMenuItem) toggleGroup.getSelectedToggle();
+        currentMode.setStyle(Styles.getButtonStyle());
         toggleGroup.selectToggle(null);
         toggleGroup.selectToggle(currentMode);  // force update to the view mode
     }

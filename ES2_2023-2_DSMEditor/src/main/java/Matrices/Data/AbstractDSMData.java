@@ -59,6 +59,7 @@ public abstract class AbstractDSMData {
     protected StringProperty projectName = new SimpleStringProperty("");
     protected StringProperty customer = new SimpleStringProperty("");
     protected StringProperty versionNumber = new SimpleStringProperty("");
+    protected StringProperty projectDate = new SimpleStringProperty("");
 
     private final BooleanProperty wasModified = new SimpleBooleanProperty(false);
     protected Stack<MatrixChange> undoStack;
@@ -123,6 +124,7 @@ public abstract class AbstractDSMData {
         projectName = copy.getProjectNameProperty();
         customer = copy.getCustomerProperty();
         versionNumber = copy.getVersionNumberProperty();
+        projectDate = copy.getProjectDateProperty();
 
         setWasModified();
 
@@ -189,7 +191,7 @@ public abstract class AbstractDSMData {
      */
     public final void redoToCheckpoint() {
         while(true) {
-            if(redoStack.size() > 0) {  // make sure stack is not empty
+            if(!redoStack.isEmpty()) {  // make sure stack is not empty
                 MatrixChange change = redoStack.peek();
                 redoStack.pop();  // add change to the redo stack
 
@@ -226,7 +228,7 @@ public abstract class AbstractDSMData {
      * @return if changes are on the undo stack
      */
     public final boolean canUndo() {
-        return undoStack.size() > 0;
+        return !undoStack.isEmpty();
     }
 
 
@@ -236,7 +238,7 @@ public abstract class AbstractDSMData {
      * @return if changes are on the redo stack
      */
     public final boolean canRedo() {
-        return redoStack.size() > 0;
+        return !redoStack.isEmpty();
     }
 
 
@@ -1136,6 +1138,25 @@ public abstract class AbstractDSMData {
         ));
     }
 //endregion
+    /**
+     * Sets the version number metadata information about the matrix. Puts changes on the stack, but does not set a checkpoint.
+     *
+     * @param projectDate the new version number data for the matrix
+     */
+    public final void setProjectDate(String projectDate) {
+        String currentVersionNumber = this.projectDate.getValue();
+        addChangeToStack(new MatrixChange(
+                () -> this.projectDate.set(projectDate),
+                () -> this.projectDate.set(currentVersionNumber),
+                false
+        ));
+    }
+    //endregion
+    public final String getProjectDate() { return projectDate.getValue(); }
+
+    public final StringProperty getProjectDateProperty() {
+        return projectDate;
+    }
 
 
     /**

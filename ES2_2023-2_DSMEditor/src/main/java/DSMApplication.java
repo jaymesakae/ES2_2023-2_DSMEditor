@@ -1,4 +1,5 @@
 import Matrices.*;
+import Styles.Styles;
 import UI.EditorPane;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -7,8 +8,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -36,6 +37,8 @@ public class DSMApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         Platform.setImplicitExit(true);
+        root.setStyle(Styles.getAppPrimStyle());
+
 
         editor = new EditorPane(new MatricesCollection(), root);
 
@@ -121,6 +124,7 @@ public class DSMApplication extends Application {
         if(!exists)  {
             exists = recoveryDir.mkdir();
         }
+
         if(exists) {  // make sure recovery directory exists before saving there
             for (Map.Entry<Integer, IDSM> matrix : editor.getMatricesCollection().getMatrices().entrySet()) {
                 File f = new File("./.recovery/" + matrix.getValue().getMatrixIOHandler().getSavePath().getName());

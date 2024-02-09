@@ -1,5 +1,6 @@
 package UI;
 
+import Styles.Styles;
 import Matrices.Data.AbstractDSMData;
 import UI.Widgets.Misc;
 import javafx.geometry.Insets;
@@ -11,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import javax.swing.text.Style;
 
 
 /**
@@ -24,6 +27,8 @@ public class MatrixMetaDataPane {
     private final Label projectNameLabel;
     private final Label customerLabel;
     private final Label versionNumberLabel;
+
+    private final Label projectDateLabel;
 
     private final Button openCloseButton;
     private Boolean isOpen = true;
@@ -48,25 +53,33 @@ public class MatrixMetaDataPane {
         Label projectHeader = new Label("Project Name: ");
         Label customerHeader = new Label("Customer: ");
         Label versionHeader = new Label("Version: ");
+        Label projectDateHeader = new Label("Date: ");
 
         titleLabel = new Label("");
         projectNameLabel = new Label("");
         customerLabel = new Label("");
         versionNumberLabel = new Label("");
+        projectDateLabel = new Label("");
+
         titleLabel.textProperty().bind(matrix.getTitleProperty());
         projectNameLabel.textProperty().bind(matrix.getProjectNameProperty());
         customerLabel.textProperty().bind(matrix.getCustomerProperty());
         versionNumberLabel.textProperty().bind(matrix.getVersionNumberProperty());
+        projectDateLabel.textProperty().bind(matrix.getProjectDateProperty());
 
         GridPane.setConstraints(titleHeader, 0, 0);
         GridPane.setConstraints(projectHeader, 0, 1);
         GridPane.setConstraints(customerHeader, 0, 2);
         GridPane.setConstraints(versionHeader, 0, 3);
+        GridPane.setConstraints(projectDateHeader, 0, 4);
+
         GridPane.setConstraints(titleLabel, 1, 0);
         GridPane.setConstraints(projectNameLabel, 1, 1);
         GridPane.setConstraints(customerLabel, 1, 2);
         GridPane.setConstraints(versionNumberLabel, 1, 3);
-        detailsLayout.getChildren().addAll(titleHeader, projectHeader, customerHeader, versionHeader, titleLabel, projectNameLabel, customerLabel, versionNumberLabel);
+        GridPane.setConstraints(projectDateLabel, 1, 4);
+
+        detailsLayout.getChildren().addAll(titleHeader, projectHeader, customerHeader, versionHeader, projectDateHeader, titleLabel, projectNameLabel, customerLabel, versionNumberLabel, projectDateLabel);
         detailsLayout.setHgap(10);
         detailsLayout.setVgap(10);
 
@@ -81,39 +94,59 @@ public class MatrixMetaDataPane {
             GridPane editLayout = new GridPane();
 
             Label titlePrompt = new Label("Title: ");
+            titlePrompt.setStyle(Styles.getAppFontStyle());
             Label projectPrompt = new Label("Project Name: ");
+            projectPrompt.setStyle(Styles.getAppFontStyle());
             Label customerPrompt = new Label("Customer: ");
+            customerPrompt.setStyle(Styles.getAppFontStyle());
             Label versionPrompt = new Label("Version: ");
+            versionPrompt.setStyle(Styles.getAppFontStyle());
+            Label datePrompt = new Label("Project date: ");
+            datePrompt.setStyle(Styles.getAppFontStyle());
+
 
             TextField title = new TextField();
+            title.setStyle(Styles.getAppPrimStyle());
             title.setText(titleLabel.getText());
             title.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(title, Priority.ALWAYS);
 
             TextField project = new TextField();
+            project.setStyle(Styles.getAppTercStyle());
             project.setText(projectNameLabel.getText());
             project.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(project, Priority.ALWAYS);
 
             TextField customer = new TextField();
+            customer.setStyle(Styles.getAppTercStyle());
             customer.setText(customerLabel.getText());
             customer.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(customer, Priority.ALWAYS);
 
             TextField version = new TextField();
+            version.setStyle(Styles.getAppTercStyle());
             version.setText(versionNumberLabel.getText());
             version.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(version, Priority.ALWAYS);
+
+            TextField date = new TextField();
+            date.setStyle(Styles.getAppTercStyle());
+            date.setText(projectDateLabel.getText());
+            date.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(date, Priority.ALWAYS);
 
             GridPane.setConstraints(titlePrompt, 0, 0);
             GridPane.setConstraints(projectPrompt, 0, 1);
             GridPane.setConstraints(customerPrompt, 0, 2);
             GridPane.setConstraints(versionPrompt, 0, 3);
+            GridPane.setConstraints(datePrompt, 0, 4);
+
             GridPane.setConstraints(title, 1, 0);
             GridPane.setConstraints(project, 1, 1);
             GridPane.setConstraints(customer, 1, 2);
             GridPane.setConstraints(version, 1, 3);
-            editLayout.getChildren().addAll(titlePrompt, projectPrompt, customerPrompt, versionPrompt, title, project, customer, version);
+            GridPane.setConstraints(date, 1, 4);
+            editLayout.getChildren().addAll(titlePrompt, projectPrompt, customerPrompt, versionPrompt, datePrompt, title, project, customer, version, date);
             editLayout.setHgap(10);
             editLayout.setVgap(10);
             editLayout.setAlignment(Pos.CENTER);
@@ -122,6 +155,7 @@ public class MatrixMetaDataPane {
             Pane vSpacer = new Pane();  // used as a spacer between buttons
             VBox.setVgrow(vSpacer, Priority.ALWAYS);
             vSpacer.setMaxHeight(Double.MAX_VALUE);
+            vSpacer.setStyle(Styles.getAppSecStyle());
 
             HBox closeArea = new HBox();
             Button applyAllButton = new Button("Apply");
@@ -130,6 +164,7 @@ public class MatrixMetaDataPane {
                 matrix.setProjectName(project.getText());
                 matrix.setCustomer(customer.getText());
                 matrix.setVersionNumber(version.getText());
+                matrix.setProjectDate(date.getText());
 
                 matrix.setCurrentStateAsCheckpoint();
 
@@ -149,6 +184,7 @@ public class MatrixMetaDataPane {
             rootLayout.setAlignment(Pos.CENTER);
             rootLayout.setPadding(new Insets(10, 10, 10, 10));
             rootLayout.setSpacing(10);
+            rootLayout.setStyle(Styles.getAppPrimStyle());
 
 
             //Display window and wait for it to be closed before returning
