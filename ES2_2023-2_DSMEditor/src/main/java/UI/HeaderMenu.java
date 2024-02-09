@@ -53,23 +53,18 @@ public class HeaderMenu {
     private final Menu toolsMenu = new Menu("_Tools");
     private final Menu helpMenu = new Menu("_Help");
     private final Menu colorModeMenu = new Menu("_Color mode");
-
     private ToggleGroup toggleGroup = new ToggleGroup();
     private RadioMenuItem namesView = new RadioMenuItem("Names");
     private RadioMenuItem weightsView = new RadioMenuItem("Weights");
     private RadioMenuItem interfacesView = new RadioMenuItem("Interfaces");
     private RadioMenuItem fastRenderView = new RadioMenuItem("Fast Render");
-
     private ArrayList<DSMInterfaceType> currentInterfaces = new ArrayList<>();
-
     private final MenuBar menuBar = new MenuBar();
-
     private final EditorPane editor;
     //private IDSM matrix;
     private AbstractDSMData matrixData;
     private AbstractIOHandler ioHandler;
     private AbstractMatrixView matrixView;
-
     private boolean disabled = false;
     private boolean crossHighlight = false;
 
@@ -84,8 +79,6 @@ public class HeaderMenu {
             this.matrixView = editor.getFocusedMatrix().getMatrixView();
         }
 
-        menuBar.setStyle(Styles.getButtonStyle());
-        fileMenu.setStyle(Styles.getButtonStyle());
         setupFileMenu();
         setupEditMenu();
         setUpToolsMenu();
@@ -114,7 +107,6 @@ public class HeaderMenu {
 
         MenuItem saveFileAs = new MenuItem("Save As...");
         saveFileAs.setStyle(Styles.getButtonStyle());
-
 
         Menu importMenu = new Menu("Import");
         importMenu.setStyle(Styles.getButtonStyle());
@@ -782,25 +774,28 @@ public class HeaderMenu {
     protected void setupColorModeMenu() {
         MenuItem lightMode = new MenuItem("Light mode");
         lightMode.setStyle(Styles.getButtonStyle());
-        lightMode.setOnAction(e -> Styles.setDarkMode(false));
+        lightMode.setOnAction(e -> {
+            Styles.setDarkMode(false);
+            editor.updateColor(Styles.getAppPrimStyle(), Styles.getButtonStyle());
+
+        });
 
         MenuItem darkMode = new MenuItem("Dark mode");
         darkMode.setStyle(Styles.getButtonStyle());
-        darkMode.setOnAction(e -> Styles.setDarkMode(true));
+        darkMode.setOnAction(e -> {
+            Styles.setDarkMode(true);
+            editor.updateColor(Styles.getAppPrimStyle(), Styles.getButtonStyle());
+            menuBar.setStyle(Styles.getAppSecStyle());
 
-        try{
-        editor.setRootLayoutColor(Styles.getAppPrimStyle());
+        });
 
-        }catch(NullPointerException e){
-            System.out.println(e);
-        }
+
 
         colorModeMenu.setStyle(Styles.getAppSecStyle());
         menuBar.setStyle(Styles.getAppSecStyle());
         //System.out.println("new color:"+Styles.getCurrentSecColor());
 
         colorModeMenu.getItems().addAll(lightMode, darkMode);
-        refresh(matrixData, ioHandler, matrixView);
     }
 
 

@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -22,7 +23,6 @@ import java.util.HashMap;
  */
 public class EditorPane {
     private final BorderPane rootLayout;
-
     private final TabPane tabPane = new TabPane();
     private final HashMap<DraggableTab, Integer> tabs = new HashMap<>();  // tab object, matrix uid
     private final MatricesCollection matrices;
@@ -339,7 +339,11 @@ public class EditorPane {
         this.matrices.getMatrix(getFocusedMatrixUid()).getMatrixView().refreshView();
     }
 
-    public void setRootLayoutColor(String style){
-        this.rootLayout.setStyle(style);
+    public void updateColor(String layoutStyle, String tabStyle){
+        this.rootLayout.setStyle(layoutStyle);
+        this.tabPane.setStyle(tabStyle);
+        for (Map.Entry<DraggableTab, Integer> tabs_map : tabs.entrySet()) {
+            tabs_map.getKey().setStyle(tabStyle);
+        }
     }
 }
