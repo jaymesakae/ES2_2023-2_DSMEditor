@@ -25,6 +25,8 @@ public class MatrixMetaDataPane {
     private final Label customerLabel;
     private final Label versionNumberLabel;
 
+    private final Label projectDateLabel;
+
     private final Button openCloseButton;
     private Boolean isOpen = true;
 
@@ -48,25 +50,33 @@ public class MatrixMetaDataPane {
         Label projectHeader = new Label("Project Name: ");
         Label customerHeader = new Label("Customer: ");
         Label versionHeader = new Label("Version: ");
+        Label projectDateHeader = new Label("Date: ");
 
         titleLabel = new Label("");
         projectNameLabel = new Label("");
         customerLabel = new Label("");
         versionNumberLabel = new Label("");
+        projectDateLabel = new Label("");
+
         titleLabel.textProperty().bind(matrix.getTitleProperty());
         projectNameLabel.textProperty().bind(matrix.getProjectNameProperty());
         customerLabel.textProperty().bind(matrix.getCustomerProperty());
         versionNumberLabel.textProperty().bind(matrix.getVersionNumberProperty());
+        projectDateLabel.textProperty().bind(matrix.getProjectDateProperty());
 
         GridPane.setConstraints(titleHeader, 0, 0);
         GridPane.setConstraints(projectHeader, 0, 1);
         GridPane.setConstraints(customerHeader, 0, 2);
         GridPane.setConstraints(versionHeader, 0, 3);
+        GridPane.setConstraints(projectDateHeader, 0, 4);
+
         GridPane.setConstraints(titleLabel, 1, 0);
         GridPane.setConstraints(projectNameLabel, 1, 1);
         GridPane.setConstraints(customerLabel, 1, 2);
         GridPane.setConstraints(versionNumberLabel, 1, 3);
-        detailsLayout.getChildren().addAll(titleHeader, projectHeader, customerHeader, versionHeader, titleLabel, projectNameLabel, customerLabel, versionNumberLabel);
+        GridPane.setConstraints(projectDateLabel, 1, 4);
+
+        detailsLayout.getChildren().addAll(titleHeader, projectHeader, customerHeader, versionHeader, projectDateHeader, titleLabel, projectNameLabel, customerLabel, versionNumberLabel, projectDateLabel);
         detailsLayout.setHgap(10);
         detailsLayout.setVgap(10);
 
@@ -84,6 +94,7 @@ public class MatrixMetaDataPane {
             Label projectPrompt = new Label("Project Name: ");
             Label customerPrompt = new Label("Customer: ");
             Label versionPrompt = new Label("Version: ");
+            Label datePrompt = new Label("Project date: ");
 
             TextField title = new TextField();
             title.setText(titleLabel.getText());
@@ -105,15 +116,23 @@ public class MatrixMetaDataPane {
             version.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(version, Priority.ALWAYS);
 
+            TextField date = new TextField();
+            date.setText(projectDateLabel.getText());
+            date.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(date, Priority.ALWAYS);
+
             GridPane.setConstraints(titlePrompt, 0, 0);
             GridPane.setConstraints(projectPrompt, 0, 1);
             GridPane.setConstraints(customerPrompt, 0, 2);
             GridPane.setConstraints(versionPrompt, 0, 3);
+            GridPane.setConstraints(datePrompt, 0, 4);
+
             GridPane.setConstraints(title, 1, 0);
             GridPane.setConstraints(project, 1, 1);
             GridPane.setConstraints(customer, 1, 2);
             GridPane.setConstraints(version, 1, 3);
-            editLayout.getChildren().addAll(titlePrompt, projectPrompt, customerPrompt, versionPrompt, title, project, customer, version);
+            GridPane.setConstraints(date, 1, 4);
+            editLayout.getChildren().addAll(titlePrompt, projectPrompt, customerPrompt, versionPrompt, datePrompt, title, project, customer, version, date);
             editLayout.setHgap(10);
             editLayout.setVgap(10);
             editLayout.setAlignment(Pos.CENTER);
@@ -130,6 +149,7 @@ public class MatrixMetaDataPane {
                 matrix.setProjectName(project.getText());
                 matrix.setCustomer(customer.getText());
                 matrix.setVersionNumber(version.getText());
+                matrix.setProjectDate(date.getText());
 
                 matrix.setCurrentStateAsCheckpoint();
 
