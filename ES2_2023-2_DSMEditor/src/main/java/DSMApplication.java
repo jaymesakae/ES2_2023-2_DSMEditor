@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -36,6 +37,8 @@ public class DSMApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         Platform.setImplicitExit(true);
+        root.setStyle("-fx-background-color: "+ Styles.Styles.getCurrentPrimColor());
+
 
         editor = new EditorPane(new MatricesCollection(), root);
 

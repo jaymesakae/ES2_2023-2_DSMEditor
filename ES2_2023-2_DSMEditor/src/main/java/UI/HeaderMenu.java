@@ -1,6 +1,7 @@
 package UI;
 
 import Constants.Constants;
+import Styles.Styles;
 import Matrices.AsymmetricDSM;
 import Matrices.Data.AbstractDSMData;
 import Matrices.Data.AsymmetricDSMData;
@@ -20,6 +21,7 @@ import Matrices.MultiDomainDSM;
 import Matrices.SymmetricDSM;
 import Matrices.Views.AbstractMatrixView;
 import Matrices.Views.Flags.ISymmetricHighlight;
+import Styles.Styles;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -50,6 +52,7 @@ public class HeaderMenu {
     private final Menu viewMenu = new Menu("_View");
     private final Menu toolsMenu = new Menu("_Tools");
     private final Menu helpMenu = new Menu("_Help");
+    private final Menu colorModeMenu = new Menu("_Color mode");
 
     private ToggleGroup toggleGroup = new ToggleGroup();
     private RadioMenuItem namesView = new RadioMenuItem("Names");
@@ -85,9 +88,11 @@ public class HeaderMenu {
         setupEditMenu();
         setUpToolsMenu();
         setupViewMenu();
+        setupColorModeMenu();
         setupHelpMenu();
 
-        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu, toolsMenu, helpMenu);
+
+        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu, toolsMenu, colorModeMenu, helpMenu);
     }
 
 
@@ -727,6 +732,21 @@ public class HeaderMenu {
         helpMenu.getItems().addAll(about);
     }
 
+    /**
+     * sets up the Menu object for the color mode menu
+     */
+    protected void setupColorModeMenu() {
+        MenuItem lightMode = new MenuItem("Light mode");
+        lightMode.setOnAction(e -> Styles.setDarkMode(false));
+
+        MenuItem darkMode = new MenuItem("Dark mode");
+        darkMode.setOnAction(e -> Styles.setDarkMode(true));
+        colorModeMenu.setStyle("-fx-background-color: "+ Styles.getCurrentPrimColor());
+        System.out.println("new color:"+Styles.getCurrentSecColor());
+
+        colorModeMenu.getItems().addAll(lightMode, darkMode);
+    }
+
 
     /**
      * @return  the menu bar object that has been set up
@@ -762,14 +782,16 @@ public class HeaderMenu {
         editMenu.getItems().clear();
         viewMenu.getItems().clear();
         toolsMenu.getItems().clear();
+        colorModeMenu.getItems().clear();
         helpMenu.getItems().clear();
 
         setupFileMenu();
         setupEditMenu();
         setUpToolsMenu();
         setupViewMenu();
+        setupColorModeMenu();
         setupHelpMenu();
-        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu, toolsMenu, helpMenu);
+        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu, toolsMenu, colorModeMenu, helpMenu);
     }
 
 
