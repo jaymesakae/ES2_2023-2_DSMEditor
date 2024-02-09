@@ -216,7 +216,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
      */
     public void clearGroupings(Boolean isRow) {
         ObservableList<Grouping> oldGroupings = FXCollections.observableArrayList();
-        if(isRow == True) {
+        if(isRow == true) {
             oldGroupings.addAll(rowGroupings);
         } else {
             oldGroupings.addAll(colGroupings);
