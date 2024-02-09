@@ -71,7 +71,7 @@ public abstract class AbstractDSMData {
      * Creates a new SymmetricDSMData object. Creates no row or column items and metadata are empty strings.
      * There is one grouping, which is the default: "(None)"
      */
-    public AbstractDSMData() {
+    protected AbstractDSMData() {
         undoStack = new Stack<>();
         redoStack = new Stack<>();
 
