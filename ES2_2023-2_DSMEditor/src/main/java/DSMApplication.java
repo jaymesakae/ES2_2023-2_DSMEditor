@@ -124,6 +124,7 @@ public class DSMApplication extends Application {
         if(!exists)  {
             exists = recoveryDir.mkdir();
         }
+
         if(exists) {  // make sure recovery directory exists before saving there
             for (Map.Entry<Integer, IDSM> matrix : editor.getMatricesCollection().getMatrices().entrySet()) {
                 File f = new File("./.recovery/" + matrix.getValue().getMatrixIOHandler().getSavePath().getName());

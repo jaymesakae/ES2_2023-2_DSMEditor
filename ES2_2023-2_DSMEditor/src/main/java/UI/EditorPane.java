@@ -339,4 +339,7 @@ public class EditorPane {
         this.matrices.getMatrix(getFocusedMatrixUid()).getMatrixView().refreshView();
     }
 
+    public void setRootLayoutColor(String style){
+        this.rootLayout.setStyle(style);
+    }
 }

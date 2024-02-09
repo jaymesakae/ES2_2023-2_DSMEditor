@@ -1,0 +1,35 @@
+/* Dark Mode */
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.dark-mode .primary {
+  color: #ffcc00;
+}
+
+.dark-mode .secondary {
+  color: #00ccff;
+}
+
+.dark-mode .tertiary {
+  color: #ff00cc;
+}
+
+/* Light Mode */
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.light-mode .primary {
+  color: #ff9900;
+}
+
+.light-mode .secondary {
+  color: #0099ff;
+}
+
+.light-mode .tertiary {
+  color: #ff0099;
+}

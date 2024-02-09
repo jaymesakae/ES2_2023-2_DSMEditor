@@ -4,7 +4,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public class Styles {
-    private static boolean isDarkMode = true;
+    private static boolean isDarkMode = false;
     // Colors
     private static String lightModePrimColor = "white";
     private static String lightModeSecColor = "white";
@@ -52,6 +52,11 @@ public class Styles {
             return darkModeFontColor;
     }
 
+    public static String getButtonStyle(){
+        String style = getAppFontStyle() + ";" + getAppSecStyle() + ";";
+        return style;
+    }
+
     public static String getAppPrimStyle(){
         if (!isDarkMode())
             return "-fx-background-color: " + lightModePrimColor;
@@ -61,7 +66,8 @@ public class Styles {
 
     public static String getAppSecStyle(){
         if (!isDarkMode())
-            return "-fx-background-color: " + lightModeSecColor;
+            return "";
+            //return "-fx-background-color: " + lightModeSecColor;
         else
             return "-fx-background-color: " +  darkModeSecColor;
     }
@@ -74,7 +80,8 @@ public class Styles {
     }
     public static String getAppFontStyle(){
         if (!isDarkMode())
-            return "-fx-text-fill: " + lightModeFontColor;
+            return "";
+            //return "-fx-text-fill: " + lightModeFontColor;
         else
             return "-fx-text-fill: " + darkModeFontColor;
     }
