@@ -331,7 +331,7 @@ public class SymmetricIOHandler extends AbstractIOHandler implements IThebeauExp
             doc.getRootElement().addContent(interfacesElement);
 
             XMLOutputter xmlOutput = new XMLOutputter();
-            if(Constants.isDebug) {
+            if(Constants.isDebug()) {
                 xmlOutput.setFormat(Format.getPrettyFormat());
             } else {
                 xmlOutput.setFormat(Format.getCompactFormat());

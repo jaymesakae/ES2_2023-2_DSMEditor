@@ -7,5 +7,13 @@ public class Constants {
     };
     public static final double fastRenderMinFontSize = 4;
     public static final double fastRenderMaxFontSize = 18;
-    public static boolean isDebug = false;
+    private static boolean isDebug = false;
+
+    public static boolean isDebug() {
+        return isDebug;
+    }
+
+    public static void setDebug(boolean debug) {
+        isDebug = debug;
+    }
 }
