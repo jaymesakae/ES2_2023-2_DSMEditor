@@ -31,13 +31,3 @@ jobs:
     - name: Build test
       run: mvn clean test
       working-directory: ES2_2023-2_DSMEditor/
-
-    - name: criando diretorio dos resultados dos testes
-      run: mkdir -p ES2_2023-2_DSMEditor/test_result
-
-    - name: Gerar relatorio de testes
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results
-        path: ES2_2023-2_DSMEditor/test_result
-          
