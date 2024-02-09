@@ -742,9 +742,11 @@ public class HeaderMenu {
         MenuItem darkMode = new MenuItem("Dark mode");
         darkMode.setOnAction(e -> Styles.setDarkMode(true));
         colorModeMenu.setStyle("-fx-background-color: "+ Styles.getCurrentPrimColor());
+        menuBar.setStyle("-fx-background-color: "+ Styles.getCurrentPrimColor());
         System.out.println("new color:"+Styles.getCurrentSecColor());
 
         colorModeMenu.getItems().addAll(lightMode, darkMode);
+        refresh(matrixData, ioHandler, matrixView);
     }
 
 
