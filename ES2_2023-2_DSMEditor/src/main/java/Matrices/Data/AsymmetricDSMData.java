@@ -120,7 +120,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
      * @return       the default grouping object for either a row or a column
      */
     private Grouping getDefaultGroup(boolean isRow) {
-        if(isRow) {
+        if(isRow == true) {
             for (Grouping grouping : rowGroupings) {
                 if (grouping.getUid().equals(DEFAULT_GROUP_UID)) {
                     return grouping;
@@ -145,19 +145,19 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
      * @param group  the object of type Grouping to add
      */
     public void addGrouping(Boolean isRow, Grouping group) {
-        if(isRow && rowGroupings.contains(group)) return;
-        if(!isRow && colGroupings.contains(group)) return;
+        if(isRow == true && rowGroupings.contains(group)) return;
+        if(isRow == false && colGroupings.contains(group)) return;
 
         addChangeToStack(new MatrixChange(
                 () -> {  // do function
-                    if(isRow) {
+                    if(isRow == true) {
                         rowGroupings.add(group);
                     } else {
                         colGroupings.add(group);
                     }
                 },
                 () -> {  // undo function
-                    if(isRow) {
+                    if(isRow == true) {
                         rowGroupings.remove(group);
                     } {
                         colGroupings.remove(group);
@@ -181,7 +181,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
 
         addChangeToStack(new MatrixChange(
                 () -> {  // do function
-                    if(isRow) {
+                    if(isRow == true) {
                         rowGroupings.remove(group);
                         for(DSMItem item : rows) {  // these changes already get put on the stack so no need to add them a second time
                             if(item.getGroup1().equals(group)) {
@@ -198,7 +198,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
                     }
                 },
                 () -> {  // undo function
-                    if(isRow) {
+                    if(isRow == true) {
                         rowGroupings.add(group);
                     } else {
                         colGroupings.add(group);
@@ -216,7 +216,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
      */
     public void clearGroupings(Boolean isRow) {
         ObservableList<Grouping> oldGroupings = FXCollections.observableArrayList();
-        if(isRow) {
+        if(isRow == true) {
             oldGroupings.addAll(rowGroupings);
         } else {
             oldGroupings.addAll(colGroupings);
@@ -225,7 +225,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
 
         addChangeToStack(new MatrixChange(
                 () -> {  // do function
-                    if(isRow) {
+                    if(isRow == true) {
                         rowGroupings.clear();
                         rowGroupings.add(new Grouping(DEFAULT_GROUP_UID, Grouping.DEFAULT_PRIORITY,  "(none)", Color.WHITE, Grouping.DEFAULT_FONT_COLOR));
                         for(DSMItem r : rows) {
@@ -240,7 +240,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
                     }
                 },
                 () -> {  // undo function
-                    if(isRow) {
+                    if(isRow == true) {
                         rowGroupings = oldGroupings;
                     } else {
                         colGroupings = oldGroupings;
@@ -262,7 +262,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
             return o1.getName().compareTo(o2.getName());
         };
 
-        if(isRow) {
+        if(isRow == true) {
             FXCollections.sort(rowGroupings, groupingComparator);
             return rowGroupings;
         } else {
@@ -372,7 +372,7 @@ public class AsymmetricDSMData extends AbstractDSMData implements IPropagationAn
     @Override
     public void createItem(String name, boolean isRow) {
         double index;
-        if(isRow) {
+        if(isRow == true) {
             index = (int) getRowMaxSortIndex() + 1;  // cast to int to remove the decimal place so that the index will be a whole number
         } else {
             index = (int) getColMaxSortIndex() + 1;  // cast to int to remove the decimal place so that the index will be a whole number

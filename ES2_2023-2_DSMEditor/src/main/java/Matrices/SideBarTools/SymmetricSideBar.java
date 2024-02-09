@@ -742,7 +742,7 @@ public class SymmetricSideBar extends AbstractSideBar {
 
             } else if(firstItemSelector.getValue() == Integer.MAX_VALUE && secondItemSelector.getValue() != Integer.MAX_VALUE) {
                 boolean secondIsRow = matrix.isRow(secondItemSelector.getValue());
-                if(secondIsRow) {  // delete all columns going to a row
+                if(secondIsRow == true) {  // delete all columns going to a row
                     DSMItem row = matrix.getItem(secondItemSelector.getValue());
                     rowSelected.add(row);
                     colSelected.addAll(matrix.getCols());
@@ -754,7 +754,7 @@ public class SymmetricSideBar extends AbstractSideBar {
 
             } else if(firstItemSelector.getValue() != Integer.MAX_VALUE && secondItemSelector.getValue() == Integer.MAX_VALUE) {
                 boolean firstIsRow = matrix.isRow(firstItemSelector.getValue());
-                if(firstIsRow) {  // delete all columns going to a row
+                if(firstIsRow == true) {  // delete all columns going to a row
                     DSMItem row = matrix.getItem(firstItemSelector.getValue());
                     rowSelected.add(row);
                     colSelected.addAll(matrix.getCols());
@@ -796,7 +796,7 @@ public class SymmetricSideBar extends AbstractSideBar {
                 }
             } else if(firstItemSelector.getValue() == Integer.MAX_VALUE && secondItemSelector.getValue() != Integer.MAX_VALUE) {
                 boolean secondIsRow = matrix.isRow(secondItemSelector.getValue());
-                if(secondIsRow) {  // delete all columns going to a row
+                if(secondIsRow == true) {  // delete all columns going to a row
                     DSMItem row = matrix.getItem(secondItemSelector.getValue());
                     for(DSMItem col : matrix.getCols()) {
                         DSMConnection conn = matrix.getConnection(row.getUid(), col.getUid());
@@ -825,7 +825,7 @@ public class SymmetricSideBar extends AbstractSideBar {
 
             } else if(firstItemSelector.getValue() != Integer.MAX_VALUE && secondItemSelector.getValue() == Integer.MAX_VALUE) {
                 boolean firstIsRow = matrix.isRow(firstItemSelector.getValue());
-                if(firstIsRow) {  // delete all columns going to a row
+                if(firstIsRow == true) {  // delete all columns going to a row
                     DSMItem row = matrix.getItem(firstItemSelector.getValue());
                     for(DSMItem col : matrix.getCols()) {
                         DSMConnection conn = matrix.getConnection(row.getUid(), col.getUid());

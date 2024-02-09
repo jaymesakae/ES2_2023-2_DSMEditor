@@ -572,7 +572,7 @@ public abstract class AbstractDSMData {
     public void addItem(DSMItem item, boolean isRow) {
         addChangeToStack(new MatrixChange(
                 () -> {  // do function
-                    if (isRow) {
+                    if (isRow == true) {
                         this.rows.add(item);
                     } else {
                         this.cols.add(item);
@@ -594,7 +594,7 @@ public abstract class AbstractDSMData {
      */
     public void createItem(String name, boolean isRow) {
         double index;
-        if(isRow) {
+        if(isRow == true) {
             index = (int) getRowMaxSortIndex() + 1;  // cast to int to remove the decimal place so that the index will be a whole number
         } else {
             index = (int) getColMaxSortIndex() + 1;  // cast to int to remove the decimal place so that the index will be a whole number
@@ -618,7 +618,7 @@ public abstract class AbstractDSMData {
                     removeItem(item);
                 },
                 () -> {  // undo function
-                    if (isRow) {
+                    if (isRow == true) {
                         this.rows.add(item);
                     } else {
                         this.cols.add(item);

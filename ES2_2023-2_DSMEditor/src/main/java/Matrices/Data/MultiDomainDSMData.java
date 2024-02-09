@@ -662,7 +662,7 @@ public class MultiDomainDSMData extends AbstractDSMData implements IZoomable, IP
                     removeItem(aliasedItem);
                 },
                 () -> {  // undo function
-                    if (isRow) {
+                    if (isRow == true) {
                         this.rows.add(item);
                         this.cols.add(aliasedItem);
                     } else {

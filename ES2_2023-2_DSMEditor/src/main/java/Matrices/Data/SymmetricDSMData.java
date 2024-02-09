@@ -348,7 +348,7 @@ public class SymmetricDSMData extends AbstractDSMData implements IPropagationAna
                     removeItem(aliasedItem);
                 },
                 () -> {  // undo function
-                    if (isRow) {
+                    if (isRow == true) {
                         this.rows.add(item);
                         this.cols.add(aliasedItem);
                     } else {
